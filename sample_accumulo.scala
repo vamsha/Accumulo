@@ -50,6 +50,10 @@ object sample_accumulo  {
 
     val conn = inst.getConnector( user , new PasswordToken(password) )
 
+    if(!conn.tableOperations().exists(table)){
+      conn.tableOperations().create(table)
+    }
+    
     import org.apache.accumulo.core.security.Authorizations
     val auths = new Authorizations("public")
 
@@ -67,6 +71,16 @@ object sample_accumulo  {
     mutation.put(new Text("col_f"), new Text("col_q"), new Value("value".getBytes()))
     batchWriter.addMutation(mutation)
     batchWriter.close
+    
+    val scanner = conn.createScanner(table,Authorizations.EMPTY)
+    import scala.collection.JavaConversions._
+    val it = asScalaIterator(scanner.iterator).toSeq
+
+    it.foreach {
+      x => {
+          println(x)
+      }
+    }
 
     println( "Hello World!" )
 

@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.db.accumulo</groupId>
+  <artifactId>accumulo_sample1</artifactId>
+  <version>1.0</version>
+  <inceptionYear>2008</inceptionYear>
+
+  <repositories>
+    <repository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
+
+      <repository>
+          <id>locationtech-releases</id>
+          <url>https://repo.locationtech.org/content/repositories/releases</url>
+      </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <spark.version>2.2.0</spark.version>
+    <scala.version>2.11.0</scala.version>
+    <scala.tools.version>2.11</scala.tools.version>
+  </properties>
+
+  <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11 -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.11</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.scala-tools/maven-scala-plugin -->
+    <dependency>
+      <groupId>org.scala-tools</groupId>
+      <artifactId>maven-scala-plugin</artifactId>
+      <version>${scala.tools.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.specs</groupId>
+      <artifactId>specs</artifactId>
+      <version>1.2.5</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.accumulo/accumulo-maven-plugin -->
+    <dependency>
+      <groupId>org.apache.accumulo</groupId>
+      <artifactId>accumulo-maven-plugin</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+      <version>3.3.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.accumulo</groupId>
+      <artifactId>accumulo-core</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.tools.version}</artifactId>
+      <version>3.0.0-M15</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.tools.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+      <dependency>
+          <groupId>org.apache.accumulo</groupId>
+          <artifactId>accumulo-tracer</artifactId>
+          <version>1.7.0</version>
+      </dependency>
+
+      <!--<dependency>
+          <groupId>org.locationtech.geomesa</groupId>
+          <artifactId>geomesa-spark-sql_2.11</artifactId>
+          <version>1.3.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.locationtech.geomesa</groupId>
+          <artifactId>geomesa-accumulo-spark_2.11</artifactId>
+          <version>1.3.3</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.locationtech.geomesa</groupId>
+          <artifactId>geomesa-accumulo-datastore_2.11</artifactId>
+          <version>1.3.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.locationtech.geomesa</groupId>
+          <artifactId>geomesa-spark-core_2.11</artifactId>
+          <version>1.3.3</version>
+      </dependency>-->
+
+      <dependency>
+          <groupId>com.typesafe</groupId>
+          <artifactId>config</artifactId>
+          <version>1.3.1</version>
+      </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+          <args>
+            <arg>-target:jvm-1.5</arg>
+          </args>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+    <!--<repositories>
+        <repository>
+            <id>locationtech-releases</id>
+            <url>https://repo.locationtech.org/content/repositories/releases</url>
+        </repository>
+    </repositories>-->
+</project>
